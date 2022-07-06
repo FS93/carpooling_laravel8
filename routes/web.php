@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/search', function (Request $request) {
+    return view('searchResults',
+        ['departure' => $request->input('departure'),
+        'destination'=> $request->input('destination'),
+        'startDate' => $request->input('startDate')
+        ]);
+})->name('search');
 
 Auth::routes();
 
