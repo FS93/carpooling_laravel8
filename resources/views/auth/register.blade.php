@@ -13,9 +13,8 @@
                 <div class="d-flex flex-column align-items-center text-center">
                     <img class="rounded-circle mb-5" width="150px"
                          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-
+                    {{--
                     <div class="col-6">
-
                         <div class="card">
                             <div class="card-header">{{ __('Register') }}</div>
 
@@ -98,7 +97,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-6">
 
@@ -130,16 +129,16 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lastName"
+                                        <label for="name"
                                                class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="lastName" type="text"
-                                                   class="form-control @error('lastName') is-invalid @enderror"
-                                                   name="lastName" value="{{ old('lastName') }}" required
-                                                   autocomplete="lastName" autofocus>
+                                            <input id="name" type="text"
+                                                   class="form-control @error('name') is-invalid @enderror"
+                                                   name="name" value="{{ old('name') }}" required
+                                                   autocomplete="name" autofocus>
 
-                                            @error('lastName')
+                                            @error('name')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
