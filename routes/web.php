@@ -25,3 +25,8 @@ Route::get('/', function (AvailableRides $rides) {
     $firstRide = $rides->getAll()->first();
     return view('availableRides', ['name' => $firstRide]);
 });
+
+Route::get('/search', function () {
+   return view('welcome');
+});
+

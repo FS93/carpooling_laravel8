@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Carpooling - Share your Rides!</title>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/ae9942f4fc.js" crossorigin="anonymous"></script>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap - CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!-- Bootstrap - JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <!-- Bootstrap icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet" type="text/css">
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+
+
+    </head>
+
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-light bg-light sticky-top">
+            <div class="container justify-content-between">
+                <a class="navbar-brand" href="#!">Carpooling - Share your rides!</a>
+                <div>
+                    <a class="btn btn-primary float-end ms-3" href="#!">Menu</a>
+                    <a class="btn btn-primary float-end ms-3" href="login.html">Login</a>
+                    <a class="btn btn-primary float-end" href="signup.html">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <!-- Masthead-->
+        <header class="masthead">
+
+            <div class="container position-relative">
+                <div class="justify-content-center text-center">
+                    <!-- Page heading-->
+                    <h1 style="color: #0d6efd" class="">Let's share a ride!</h1>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-7">
+                        <div class="mb-xl-5 text-center text-white">
+
+                            <form class="form-text" id="rideData" data-sb-form-api-token="API_TOKEN">
+                                <!-- Ride Parameters -->
+                                <div class="row">
+                                    <div class="col-xl">
+                                        <input class="form-control form-control-lg mb-4" id="departure" placeholder="Departure" data-sb-validations="required" />
+                                        <div class="invalid-feedback text-white" data-sb-feedback="departure:required">Please let us know where you want to start.</div>
+                                        <input class="form-control form-control-lg mb-4" id="destination" placeholder="Destination" data-sb-validations="required" />
+                                        <div class="invalid-feedback text-white" data-sb-feedback="departure:required">Please let us know where you want to start.</div>
+                                        <input id="startDate" class="form-control form-control-lg mb-4" type="date" />
+                                    </div>
+                                </div>
+
+                                <div class="row align-content-center">
+                                    <div class="col-xl">
+                                        <button class="btn btn-primary btn-lg mb-4" id="offerButton" type="button"><i class="bi bi-plus-circle-fill me-2"></i>Offer</button>
+                                    </div>
+                                    <div class="col-xl">
+                                        <button class="btn btn-primary btn-lg mb-4" id="searchButton" type="button"><i class="bi bi-search me-2"></i>Search</button>
+                                    </div>
+                                </div>
+
+                                <!-- Submit success message-->
+                                <!---->
+                                <!-- This is what your users will see when the form-->
+                                <!-- has successfully submitted-->
+                                <div class="d-none" id="submitSuccessMessage">
+                                    <div class="text-center mb-3">
+                                        <div class="fw-bolder">Form submission successful!</div>
+                                        <p>To activate this form, sign up at</p>
+                                        <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                    </div>
+                                </div>
+                                <!-- Submit error message-->
+                                <!---->
+                                <!-- This is what your users will see when there is-->
+                                <!-- an error submitting the form-->
+                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+
+
+        <!-- Footer
+        <footer class="footer bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item"><a href="#!">About</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Contact</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                        </ul>
+                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2022. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        -->
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
