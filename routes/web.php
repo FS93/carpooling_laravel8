@@ -12,19 +12,26 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('search');
+})->name('search');
 
-Route::get('/search', function (Request $request) {
+Route::get('/searchresult', function (Request $request) {
     return view('searchResults',
         ['departure' => $request->input('departure'),
         'destination'=> $request->input('destination'),
         'startDate' => $request->input('startDate')
         ]);
-})->name('search');
-
-Auth::routes();
+})->name('searchresult');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+Route::get('/offer', function () {
+   return view('offer');
+})->name('offer');

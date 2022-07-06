@@ -16,13 +16,13 @@
                             <a class="nav-link active" aria-current="page" href="{{url('/home')}}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Search</a>
+                            <a class="nav-link" href="{{route('search')}}">Search</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Offer</a>
+                            <a class="nav-link" href="{{route('offer')}}">Offer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Profile</a>
+                            <a class="nav-link" href="{{route('profile')}}">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
