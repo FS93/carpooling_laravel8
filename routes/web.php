@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
 use App\Service\AvailableRides;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,8 @@ Route::get('/', function (AvailableRides $rides) {
     return view('availableRides', ['name' => $firstRide]);
 });
 
-Route::get('/search', function () {
-   return view('welcome');
+Route::get('/search', function (Request $request) {
+    $departure = $request->input('departure');
+    $destination = $request->input('destination');
+   return view('availableRides', ['departure' => $departure, 'destination' => $destination]);
 });
-

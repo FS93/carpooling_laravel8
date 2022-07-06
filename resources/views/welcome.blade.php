@@ -35,9 +35,20 @@
                     @endauth
                 </div>
             @endif
-            <div>
-                <a href="{{ url('/') }}">Available Rides</a>
-            </div>
+
+                <form id="form" name="userInput" method="GET" action="{{url('/search')}}">
+                    <div>
+                        <label for="departure" class="form-label">Departure</label>
+                        <input name="departure" type="text" class="form-control" id="departure">
+                    </div>
+
+                    <div>
+                        <label for="destination" class="form-label">Destination</label>
+                        <input name="destination" type="text" class="form-control" id="destination">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
         </div>
 
 
