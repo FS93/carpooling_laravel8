@@ -87,7 +87,7 @@ body {
 
 main.wrapper {
     position: relative;
-    background: #d78f8f url("../img/bus.jpg") no-repeat center center;
+    background: url("../img/bus.jpg") no-repeat center center;
     height: 100vH;
     background-size: cover;
     padding-top: 1rem;

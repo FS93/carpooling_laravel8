@@ -11,7 +11,7 @@
             <div class="col-xl-7">
                 <div class="mb-xl-5 text-center text-white">
 
-                    <form class="form-text" id="searchData" action="{{route('search')}}" method="GET">
+                    <form class="form-text" id="searchData" action="{{route('searchresult')}}" method="GET">
                         <!-- Ride Parameters -->
                         <div class="row">
                             <div class="col-xl">
