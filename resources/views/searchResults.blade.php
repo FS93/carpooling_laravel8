@@ -28,15 +28,6 @@
             </thead>
             <tbody>
 
-            {{--@foreach ($retrievedRides as $ride)
-                <tr>
-                    <td>{{$ride['departure']}}</td>
-                    <td>{{$ride['destination']}}</td>
-                    <td>{{$ride['departureTime']}}</td>
-                    <td>{{$ride['price'] . " €"}}</td>
-                    <td>{{$ride['availableSeats']}}</td>
-                </tr>
-            @endforeach--}}
             @foreach($retrievedRides as $ride)
                 <tr>
                     <td>{{$ride->departure}}</td>
@@ -47,16 +38,6 @@
                 </tr>
             @endforeach
 
-
-{{--            @for($i = 0; $i < $retrievedRides->count(); $i++)
-                <tr>
-                    <td>{{ $retrievedRides[i]->departure }}</td>
-                    <td>{{ $retrievedRides[i]->destination }}</td>
-                    <td>{{ $retrievedRides[i]->departureTime }}</td>
-                    <td>{{ $retrievedRides[i]->price }}</td>
-                    <td>{{ $retrievedRides[i]->availableSeats }}</td>
-                </tr>
-            @endfor--}}
 
             </tbody>
         </table>

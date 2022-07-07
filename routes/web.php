@@ -21,15 +21,22 @@ Route::get('/', function () {
     return view('search');
 })->name('search');
 
-Route::get('/searchresult', function (AvailableRides $rides, Request $request) {
+/*Route::get('/searchresult', function (AvailableRides $rides, Request $request) {
     return view('searchResults',
         ['retrievedRides' => $rides->getBy(
                                             $request->input('departure',""),
                                             $request->input('destination',""),
                                             $request->input('departureTime',""))]);
-})->name('searchresult');
+})->name('searchresult');*/
 
-Route::get('/home', [RidesController::class, 'showMyRides'])->name('home');
+Route::resource('/searchresult', RidesController::class)->names([
+    'index'=>'searchresult',
+    'create'=> 'createRide'
+]);
+
+//Route::get('/searchresult', [RidesController::class,'query'])->name('queryRides');
+
+Route::get('/home', [RidesController::class, 'queryUserRides'])->name('home');
 
 Route::get('/profile', function () {
     return view('profile');
