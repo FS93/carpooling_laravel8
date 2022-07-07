@@ -9,29 +9,21 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Departure</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Departure Time</th>
+                <th scope="col">Price</th>
+                <th scope="col">Available Seats</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
+                <td>Halle</td>
+                <td>Leipzig</td>
+                <td>07.07.2022 12:00</td>
+                <td>10 €</td>
+                <td>2</td>
             </tr>
             </tbody>
         </table>
