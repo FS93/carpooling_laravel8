@@ -10,35 +10,13 @@ use App\Models\Ride;
 class RidesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the current user's rides.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        // Query the rides matching the search parameter
-        $departure = $request->input('departure',"");
-        $destination = $request->input('destination',"");
-        $departureTime = $request->input('departureTime',"");
-
-        $retrievedRides = Ride::
-                where('departure','like','%' . $departure . '%')
-            ->where('destination','like','%' . $destination . '%')
-            ->where('departureTime','like',substr($departureTime,0,10) . '%')
-            ->get();
-
-        return view('searchResults', ['retrievedRides' => $retrievedRides]);
-    }
-
-    /**
-     * Display a listing of rides queried by a search.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function queryUserRides()
+    public function index()
     {
         // Query the rides of the current users
-
 
         $userRidesAsDriver = Ride::
         where('driverID', Auth::user()->getAuthIdentifier())
@@ -50,6 +28,29 @@ class RidesController extends Controller
         $userRides = $userRidesAsDriver->merge($userRidesAsPassenger);
 
         return view('home', ['userRides' => $userRides]);
+
+    }
+
+    /**
+     * Display a listing of rides queried by a search.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function queryRides(Request $request)
+    {
+        // Query the rides matching the search parameter
+        $departure = $request->input('departure',"");
+        $destination = $request->input('destination',"");
+        $departureTime = $request->input('departureTime',"");
+
+        $retrievedRides = Ride::
+        where('departure','like','%' . $departure . '%')
+            ->where('destination','like','%' . $destination . '%')
+            ->where('departureTime','like',substr($departureTime,0,10) . '%')
+            ->get();
+
+        return view('searchResults', ['retrievedRides' => $retrievedRides]);
     }
 
     /**

@@ -16,33 +16,13 @@ use App\Services\AvailableRides;
 */
 Auth::routes();
 
+Route::get('/', function () {return view('search');})->name('search');
 
-Route::get('/', function () {
-    return view('search');
-})->name('search');
+Route::get('/searchresult', [RidesController::class, 'queryRides'])->name('searchresult');
 
-/*Route::get('/searchresult', function (AvailableRides $rides, Request $request) {
-    return view('searchResults',
-        ['retrievedRides' => $rides->getBy(
-                                            $request->input('departure',""),
-                                            $request->input('destination',""),
-                                            $request->input('departureTime',""))]);
-})->name('searchresult');*/
+Route::resource('/home', RidesController::class);
 
-Route::resource('/searchresult', RidesController::class)->names([
-    'index'=>'searchresult',
-    'create'=> 'createRide'
-]);
+Route::get('/profile', function () {return view('profile');})->name('profile');
 
-//Route::get('/searchresult', [RidesController::class,'query'])->name('queryRides');
-
-Route::get('/home', [RidesController::class, 'queryUserRides'])->name('home');
-
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-Route::get('/offer', function () {
-   return view('offer');
-})->name('offer');
+Route::get('/offer', function () {return view('offer');})->name('offer');
 
