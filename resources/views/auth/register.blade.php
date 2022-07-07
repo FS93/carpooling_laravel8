@@ -99,10 +99,10 @@
                         </div>
                     </div> --}}
 
-                    <div class="col-6">
+                    <div class="col-12">
 
                         <div class="card">
-                            <div class="card-header">{{ __('Extended Registration') }}</div>
+                            <div class="card-header">{{ __('Registration') }}</div>
 
                             <div class="card-body">
 
