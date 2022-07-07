@@ -15,11 +15,11 @@
                         <!-- Ride Parameters -->
                         <div class="row">
                             <div class="col-xl">
-                                <input class="form-control form-control-lg mb-4" name="departure" id="departure" placeholder="Departure" data-sb-validations="required" />
+                                <input class="form-control mb-4" name="departure" id="departure" placeholder="Departure" data-sb-validations="required" />
                                 <div class="invalid-feedback text-white" data-sb-feedback="departure:required">Please let us know where you want to start.</div>
-                                <input class="form-control form-control-lg mb-4" name="destination" id="destination" placeholder="Destination" data-sb-validations="required" />
+                                <input class="form-control mb-4" name="destination" id="destination" placeholder="Destination" data-sb-validations="required" />
                                 <div class="invalid-feedback text-white" data-sb-feedback="departure:required">Please let us know where you want to start.</div>
-                                <input class="form-control form-control-lg mb-4" name="startDate" id="startDate" type="date" />
+                                <input class="form-control mb-4" name="startDate" id="startDate" type="date" />
                             </div>
                         </div>
 
