@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RidesController;
+use App\Services\AvailableRides;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,16 +16,17 @@ use App\Http\Controllers\RidesController;
 */
 Auth::routes();
 
+
 Route::get('/', function () {
     return view('search');
 })->name('search');
 
-Route::get('/searchresult', function (Request $request) {
+Route::get('/searchresult', function (AvailableRides $rides, Request $request) {
     return view('searchResults',
-        ['departure' => $request->input('departure'),
-        'destination'=> $request->input('destination'),
-        'startDate' => $request->input('startDate')
-        ]);
+        ['retrievedRides' => $rides->getBy(
+                                            $request->input('departure',""),
+                                            $request->input('destination',""),
+                                            $request->input('departureTime',""))]);
 })->name('searchresult');
 
 Route::get('/home', [RidesController::class, 'showMyRides'])->name('home');
@@ -36,5 +38,4 @@ Route::get('/profile', function () {
 Route::get('/offer', function () {
    return view('offer');
 })->name('offer');
-
 

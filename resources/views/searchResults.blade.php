@@ -1,9 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-center display-2">
-        Destination: {{ $departure }}, Departure: {{ $destination }}, Start Date: {{ $startDate }}
-    </div>
+
+    @if($retrievedRides->isEmpty())
+        <div class="container d-flex justify-content-center">
+                <div class="row">
+                    <h1>No rides available for your search!</h1>
+                </div>
+        </div>
+
+        <div class="container d-flex justify-content-center mt-5">
+            <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i class="bi bi-search me-2"></i>Return to Search</a>
+        </div>
+
+    @else
 
     <div class="container">
         <table class="table table-striped">
@@ -14,20 +24,44 @@
                 <th scope="col">Departure Time</th>
                 <th scope="col">Price</th>
                 <th scope="col">Available Seats</th>
-                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Halle</td>
-                <td>Leipzig</td>
-                <td>07.07.2022 12:00</td>
-                <td>10 €</td>
-                <td>2</td>
-            </tr>
+
+            {{--@foreach ($retrievedRides as $ride)
+                <tr>
+                    <td>{{$ride['departure']}}</td>
+                    <td>{{$ride['destination']}}</td>
+                    <td>{{$ride['departureTime']}}</td>
+                    <td>{{$ride['price'] . " €"}}</td>
+                    <td>{{$ride['availableSeats']}}</td>
+                </tr>
+            @endforeach--}}
+            @foreach($retrievedRides as $ride)
+                <tr>
+                    <td>{{$ride->departure}}</td>
+                    <td>{{$ride->destination}}</td>
+                    <td>{{$ride->departureTime}}</td>
+                    <td>{{$ride->price . " €"}}</td>
+                    <td>{{$ride->availableSeats}}</td>
+                </tr>
+            @endforeach
+
+
+{{--            @for($i = 0; $i < $retrievedRides->count(); $i++)
+                <tr>
+                    <td>{{ $retrievedRides[i]->departure }}</td>
+                    <td>{{ $retrievedRides[i]->destination }}</td>
+                    <td>{{ $retrievedRides[i]->departureTime }}</td>
+                    <td>{{ $retrievedRides[i]->price }}</td>
+                    <td>{{ $retrievedRides[i]->availableSeats }}</td>
+                </tr>
+            @endfor--}}
+
             </tbody>
         </table>
     </div>
+    @endif
 
 
 @endsection
