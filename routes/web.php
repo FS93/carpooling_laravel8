@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\RidesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,7 @@ Route::get('/searchresult', function (Request $request) {
         ]);
 })->name('searchresult');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [RidesController::class, 'showMyRides'])->name('home');
 
 Route::get('/profile', function () {
     return view('profile');
@@ -35,3 +36,5 @@ Route::get('/profile', function () {
 Route::get('/offer', function () {
    return view('offer');
 })->name('offer');
+
+
