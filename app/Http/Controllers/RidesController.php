@@ -114,7 +114,16 @@ class RidesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $ride = Ride::find($id);
+        $ride->departure = $request->departure;
+        $ride->destination = $request->destination;
+        $ride->departureTime = $request->departureTime;
+        $ride->availableSeats = $request->availableSeats;
+        $ride->price = $request->price;
+        $ride->save();
+        return redirect()->route('home.index')
+            ->with('success','Ride has been updated successfully');
     }
 
     /**

@@ -18,7 +18,7 @@
                             <div class="col-xl">
                                 <input class="form-control mb-4" type="text" name="departure" id="departure" placeholder="Departure" data-sb-validations="required" />
                                 <input class="form-control mb-4" type="text" name="destination" id="destination" placeholder="Destination" data-sb-validations="required" />
-                                <input class="form-control mb-4" type="date" name="departureTime" id="startDate"  />
+                                <input class="form-control mb-4" type="datetime-local" name="departureTime" id="departureTime"  />
                                 <input class="form-control mb-4" type="number" name="availableSeats" id="numberSeats" placeholder="Number of Seats" data-sb-validations="required" />
                                 <input class="form-control mb-4" type="number" min="0.00" step="0.01" name="price" id="price" placeholder="Price per seat" data-sb-validations="required" />
                             </div>
