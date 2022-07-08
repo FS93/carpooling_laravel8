@@ -40,14 +40,11 @@
             <h1>{{ \Illuminate\Support\Facades\Auth::user()->firstName . " " . \Illuminate\Support\Facades\Auth::user()->name . ", you currently have no rides." }}</h1>
         </div>
     </div>
-
+@else
     <div class="container d-flex justify-content-center mt-5">
         <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i class="bi bi-search me-2"></i>Search</a>
         <a class="btn btn-primary btn-lg mb-4 ms-3" type="button" href=" {{route('home.create')}} "><i class="bi bi-plus-circle me-2"></i>Offer</a>
     </div>
-
-@else
-
     <div class="container">
         <table class="table table-striped">
             <thead>
@@ -71,16 +68,41 @@
                     <td>{{$ride->availableSeats}}</td>
                     <td style="width: min-content">
                         <form action="{{ route('home.destroy',$ride->id) }}" method="Post">
+                            <!-- Show trigger modal -->
+                            <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal" data-bs-target="#showModal">
+                                Show
+                            </button>
+
+                            <!-- Show Modal -->
+                            <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Show Ride Data</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            This is the ride data
+                                            <div class="container">
+                                                Driver Name:
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a class="btn btn-primary me-2" href="{{ route('home.edit',$ride->id) }}">Edit</a>
                             @csrf
                             @method('DELETE')
 
-                            <!-- Button trigger modal -->
+                            <!-- Delete trigger modal -->
                             <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Delete
                             </button>
 
-                            <!-- Modal -->
+                            <!-- Delete Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
