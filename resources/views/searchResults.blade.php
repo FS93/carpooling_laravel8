@@ -42,7 +42,6 @@
             </tbody>
         </table>
     </div>
-    @endif
 
     <div class="container d-flex justify-content-center">
         <div class="row">
