@@ -10,4 +10,12 @@ class Ride extends Model
     use HasFactory;
 
     protected $table = 'rides';
+
+    protected $fillable = [
+      'departure',
+        'destination',
+        'departureTime',
+        'availableSeats',
+        'price'
+    ];
 }
