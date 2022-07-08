@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
+    <div id="liveAlertPlaceholder"></div>
+{{--    <button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button>--}}
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -21,6 +27,12 @@
     </div>
 </div>
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">
+            <p class="display-5">{{ $message }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
 @if($userRides->isEmpty())
     <div class="container d-flex justify-content-center">
@@ -80,7 +92,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary btn-danger">Delete</button>
+                                            <button id="liveAlertBtn" type="submit" class="btn btn-primary btn-danger">Delete</button>
                                         </div>
                                     </div>
                                 </div>

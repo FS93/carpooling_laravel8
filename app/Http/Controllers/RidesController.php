@@ -117,6 +117,6 @@ class RidesController extends Controller
     public function destroy($id)
     {
         Ride::destroy($id);
-        return redirect('home');
+        return redirect('home')->with('success','Ride has been deleted successfully');;
     }
 }
