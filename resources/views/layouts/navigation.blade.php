@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand ms-5" href="/">Carpooling - Share your rides!</a>
+        <a class="navbar-brand ms-5" href="@auth {{ route('home.index') }} @else {{ route('search') }} @endauth ">Carpooling - Share your rides!</a>
         <button class="navbar-toggler me-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -44,5 +44,17 @@
     </div>
     @endif
 
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <h1><a href="{{ route('login') }}" class="">Login</a> or <a href="{{ route('register') }}" class="">register</a> to join a ride!</h1>
+        </div>
+    </div>
+
+    <div class="container d-flex justify-content-center mt-5">
+        <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i class="bi bi-search me-2"></i>Return to Search</a>
+    </div>
+
+    @endif
+
 
 @endsection
