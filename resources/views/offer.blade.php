@@ -11,16 +11,16 @@
             <div class="col-xl-7">
                 <div class="mb-xl-5 text-center text-white">
 
-                    <form class="form-text" id="offerData" action="{{route('home.store')}}" method="POST">
+                    <form class="form-text needs-validation" novalidate id="offerData" action="{{route('home.store')}}" method="POST">
                         @csrf
                         <!-- Ride Parameters -->
                         <div class="row">
                             <div class="col-xl">
-                                <input class="form-control mb-4" type="text" name="departure" id="departure" placeholder="Departure" data-sb-validations="required" />
-                                <input class="form-control mb-4" type="text" name="destination" id="destination" placeholder="Destination" data-sb-validations="required" />
-                                <input class="form-control mb-4" type="datetime-local" name="departureTime" id="departureTime"  />
-                                <input class="form-control mb-4" type="number" name="availableSeats" id="numberSeats" placeholder="Number of Seats" data-sb-validations="required" />
-                                <input class="form-control mb-4" type="number" min="0.00" step="0.01" name="price" id="price" placeholder="Price per seat" data-sb-validations="required" />
+                                <input class="form-control mb-4" type="text" name="departure" id="departure" placeholder="Departure" required/>
+                                <input class="form-control mb-4" type="text" name="destination" id="destination" placeholder="Destination" required/>
+                                <input class="form-control mb-4" type="datetime-local" name="departureTime" id="departureTime" required/>
+                                <input class="form-control mb-4" type="number" name="availableSeats" id="numberSeats" placeholder="Number of Seats" required/>
+                                <input class="form-control mb-4" type="number" min="0.00" step="0.01" name="price" id="price" placeholder="Price per seat" required/>
                             </div>
                         </div>
 
@@ -35,4 +35,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+
 @endsection
