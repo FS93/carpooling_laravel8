@@ -130,7 +130,7 @@
                                                 </div>
                                                 <div class="my-2">
                                                     <label for="destination">Destination</label>
-                                                    <input type="text" name="destination" id="destination" class="form-control" placeholder="Destination" value="{{ $ride->destination }}"required>
+                                                    <input type="text" name="destination" id="destination" class="form-control" placeholder="Destination" value="{{ $ride->destination }}" required>
                                                 </div>
                                                 <div class="my-2">
                                                     <label for="departureTime">Departure Time</label>
@@ -179,7 +179,7 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <form action="{{ route('home.destroy',$ride->id) }}" method="DELETE">
+                                            <form action="{{ route('home.destroy',$ride->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button id="liveAlertBtn" type="submit"
