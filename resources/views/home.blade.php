@@ -44,6 +44,7 @@
                 <th scope="col">Departure Time</th>
                 <th scope="col">Price</th>
                 <th scope="col">Available Seats</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -55,6 +56,13 @@
                     <td>{{$ride->departureTime}}</td>
                     <td>{{$ride->price . " €"}}</td>
                     <td>{{$ride->availableSeats}}</td>
+                    <td style="width: min-content">
+                        <form action="{{ route('home.destroy',$ride->id) }}" method="Post">
+                            <a class="btn btn-primary me-2" href="{{ route('home.edit',$ride->id) }}">Edit</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form></td>
                 </tr>
             @endforeach
 

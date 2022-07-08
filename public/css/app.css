@@ -333,6 +333,7 @@ th {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
+    text-align: center;
 }
 
 label {
@@ -1765,6 +1766,7 @@ progress {
 }
 .table > tbody {
   vertical-align: inherit;
+    horiz-align: center;
 }
 .table > thead {
   vertical-align: bottom;
