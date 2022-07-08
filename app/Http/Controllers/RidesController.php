@@ -60,7 +60,7 @@ class RidesController extends Controller
      */
     public function create()
     {
-        //
+        return view('offer');
     }
 
     /**
@@ -71,7 +71,16 @@ class RidesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ride = new Ride;
+        $ride->departure = $request->departure;
+        $ride->departureTime = $request->departureTime;
+        $ride->destination = $request->destination;
+        $ride->availableSeats = $request->availableSeats;
+        $ride->price = $request->price;
+        $ride->driverID = Auth::user()->getAuthIdentifier();
+        $ride->save();
+
+        return redirect()->route('home.index')->with('success', 'Ride has been created successfully.');
     }
 
     /**

@@ -23,6 +23,3 @@ Route::get('/searchresult', [RidesController::class, 'queryRides'])->name('searc
 Route::resource('/home', RidesController::class);
 
 Route::get('/profile', function () {return view('profile');})->name('profile');
-
-Route::get('/offer', function () {return view('offer');})->name('offer');
-

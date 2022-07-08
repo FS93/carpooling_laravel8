@@ -11,20 +11,16 @@
             <div class="col-xl-7">
                 <div class="mb-xl-5 text-center text-white">
 
-                    <form class="form-text" id="offerData" action="{{route('searchresult')}}" method="POST">
+                    <form class="form-text" id="offerData" action="{{route('home.store')}}" method="POST">
+                        @csrf
                         <!-- Ride Parameters -->
                         <div class="row">
                             <div class="col-xl">
                                 <input class="form-control mb-4" type="text" name="departure" id="departure" placeholder="Departure" data-sb-validations="required" />
-                                <div class="invalid-feedback text-white" data-sb-feedback="departure:required">Please let us know where you want to start.</div>
                                 <input class="form-control mb-4" type="text" name="destination" id="destination" placeholder="Destination" data-sb-validations="required" />
-                                <div class="invalid-feedback text-white" data-sb-feedback="destination:required">Please let us know where you want to go.</div>
-                                <input class="form-control mb-4" type="date" name="startDate" id="startDate"  />
-                                <div class="invalid-feedback text-white" data-sb-feedback="startDate:required">Please let us know when you want to start.</div>
-                                <input class="form-control mb-4" type="number" name="numberSeats" id="numberSeats" placeholder="Number of Seats" data-sb-validations="required" />
-                                <div class="invalid-feedback text-white" data-sb-feedback="numberSeats:required">How many seats do you want to offer?</div>
+                                <input class="form-control mb-4" type="date" name="departureTime" id="startDate"  />
+                                <input class="form-control mb-4" type="number" name="availableSeats" id="numberSeats" placeholder="Number of Seats" data-sb-validations="required" />
                                 <input class="form-control mb-4" type="number" min="0.00" step="0.01" name="price" id="price" placeholder="Price per seat" data-sb-validations="required" />
-                                <div class="invalid-feedback text-white" data-sb-feedback="numberSeats:required">How much shall the ride cost per passenger?</div>
                             </div>
                         </div>
 

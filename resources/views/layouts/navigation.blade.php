@@ -13,13 +13,13 @@
                         {{-- Logged in user --}}
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{url('/home')}}">Home</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('home.index')}}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('search')}}">Search</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('offer')}}">Offer</a>
+                            <a class="nav-link" href="{{route('home.create')}}">Offer</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('profile')}}">Profile</a>

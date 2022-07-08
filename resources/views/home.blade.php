@@ -42,7 +42,8 @@
     </div>
 
     <div class="container d-flex justify-content-center mt-5">
-        <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i class="bi bi-search me-2"></i>Return to Search</a>
+        <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i class="bi bi-search me-2"></i>Search</a>
+        <a class="btn btn-primary btn-lg mb-4 ms-3" type="button" href=" {{route('home.create')}} "><i class="bi bi-plus-circle me-2"></i>Offer</a>
     </div>
 
 @else
