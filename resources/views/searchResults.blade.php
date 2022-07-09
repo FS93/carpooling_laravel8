@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     @if($retrievedRides->isEmpty())
         <div class="container d-flex justify-content-center">
             <div class="row">
@@ -16,7 +17,7 @@
 
     @else
 
-        <div class="container">
+        <div id="ridesContainer" class="container">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -41,26 +42,32 @@
                             <td>{{$ride->price . " €"}}</td>
                             <td>{{$ride->availableSeats}}</td>
 
-                            <td>
+                            <td id="columnAction{{$ride->id}}">
                                 <!-- Join trigger modal -->
-                                <button type="button" class="btn btn-primary btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#joinModal{{$ride->id}}">
+                                <button id="btnJoin{{$ride->id}}" type="button" class="btn btn-primary btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#Modal{{$ride->id}}">
                                     Join
                                 </button>
 
-                                {{-- join ride modal start --}}
-                                <div class="modal fade" id="joinModal{{$ride->id}}" tabindex="-1" aria-labelledby="joinModalLabel"
+                                <!-- Unjoin trigger modal -->
+                                <button id="btnUnjoin{{$ride->id}}" type="button" class="btn btn-primary btn-danger visually-hidden" data-bs-toggle="modal"
+                                        data-bs-target="#Modal{{$ride->id}}">
+                                    Unjoin
+                                </button>
+
+                                {{-- Join / Unjoin ride modal start --}}
+                                <div class="modal fade" id="Modal{{$ride->id}}" tabindex="-1" aria-labelledby="ModalLabel{{$ride->id}}"
                                      data-bs-backdrop="static" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title h1" id="joinModalLabel"><strong>Do you want to
-                                                        join this ride?</strong></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                <h5 class="modal-title h1" id="ModalLabel{{$ride->id}}">Do you want to
+                                                        join this ride?</h5>
+                                                <button id="btnClose{{$ride->id}}" type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
 
-                                            <form id="join_ride_form" enctype="multipart/form-data">
+                                            <form id="ride_form" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="modal-body p-4 bg-light">
                                                     <div class="my-2">
@@ -102,14 +109,18 @@
                                                 </button>
                                                 <button type="button"
                                                         onclick="joinRide({{$ride->id}}, {{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}})"
-                                                        id="join_ride_btn" class="btn btn-success">Join Ride
+                                                        id="btnJoinRide{{$ride->id}}Action" class="btn btn-success">Join Ride
+                                                </button>
+
+                                                <button type="button"
+                                                        onclick="unjoinRide({{$ride->id}}, {{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}})"
+                                                        id="btnUnjoinRide{{$ride->id}}Action" class="btn btn-danger visually-hidden">Unjoin Ride
                                                 </button>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                {{-- join ride modal end --}}
                             </td>
 
                         </tr>
@@ -135,8 +146,113 @@
 
         <script>
 
+
             function joinRide(rideID, userID) {
-                console.log("rideID: " + rideID.toString() + ", userID: " + userID.toString())
+                console.log("Joined rideID: " + rideID.toString() + ", userID: " + userID.toString())
+
+                $('#Modal' + rideID.toString()).on('show.bs.modal', function (event) {
+                    $(this).find("ModalLabel"+rideID.toString()).text('Do you want to leave this ride?')
+                })
+
+
+                $.ajax({
+                    url: '{{route('joinRide')}}',
+                    method: 'POST',
+                    data: {
+                        rideID: rideID,
+                        userID: userID,
+                        _token: '{{csrf_token()}}'
+                    },
+                    success: function () {
+                        // close the modal
+                        $("#Modal" + rideID.toString()).hide();
+                        $('body').removeClass('modal-open');
+                        $(".modal-backdrop").remove();
+
+                        // change the modal title
+                        $("#ModalLabel"+rideID.toString()).text("Do you want to leave this ride?");
+
+                        // change the button in the table
+                        $("#btnJoin" + rideID.toString()).addClass('visually-hidden');
+                        $("#btnUnjoin" + rideID.toString()).removeClass('visually-hidden');
+
+                        // change the button in the modal
+                        $("#btnJoinRide" + rideID.toString() + "Action").addClass('visually-hidden');
+                        $("#btnUnjoinRide" + rideID.toString() + "Action").removeClass('visually-hidden');
+
+                        // show a success alert
+                        $("#ridesContainer").before('<div class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                            '<p class="display-5">Enjoy your ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                    },
+                    error: function () {
+                        // close the modal
+                        console.log('Something went wrong');
+                        $("#Modal" + rideID.toString()).hide();
+                        $('body').removeClass('modal-open');
+                        $(".modal-backdrop").remove();
+
+                        // show a warning alert
+                        $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                            '<p class="display-5">Something went wrong...</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                    }
+                })
+            }
+
+            function unjoinRide(rideID, userID) {
+
+                console.log("Unjoined rideID: " + rideID.toString() + ", userID: " + userID.toString())
+
+                $('#Modal' + rideID.toString()).on('show.bs.modal', function (event) {
+                    $(this).find("ModalLabel"+rideID.toString()).text('Do you want to join this ride?')
+                })
+
+
+                $.ajax({
+                    url: '{{route('unjoinRide')}}',
+                    method: 'POST',
+                    data: {
+                        rideID: rideID,
+                        userID: userID,
+                        _token: '{{csrf_token()}}'
+                    },
+                    success: function () {
+                        // close the modal
+                        $("#Modal" + rideID.toString()).hide();
+                        $('body').removeClass('modal-open');
+                        $(".modal-backdrop").remove();
+
+
+
+                        // change the modal title
+                        $("#ModalLabel"+rideID.toString()).text("Do you want to join this ride?");
+
+                        // change the button in the table
+
+                        $("#btnUnjoin" + rideID.toString()).addClass('visually-hidden');
+                        $("#btnJoin" + rideID.toString()).removeClass('visually-hidden');
+
+                        // change the button in the modal
+
+                        $("#btnUnjoinRide" + rideID.toString() + "Action").addClass('visually-hidden');
+                        $("#btnJoinRide" + rideID.toString() + "Action").removeClass('visually-hidden');
+
+                        // show a success alert
+
+                        $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                            '<p class="display-5">You successfully left this ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                    },
+                    error: function () {
+                        // close the modal
+                        console.log('Something went wrong');
+                        $("#Modal" + rideID.toString()).hide();
+                        $('body').removeClass('modal-open');
+                        $(".modal-backdrop").remove();
+
+                        // show a warning alert
+                        $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                            '<p class="display-5">Something went wrong...</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                    }
+                })
             }
         </script>
 

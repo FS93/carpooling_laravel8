@@ -18,4 +18,12 @@ class Ride extends Model
         'availableSeats',
         'price'
     ];
+
+    /**
+     * Get the driver associated with the ride.
+     */
+    public function driver()
+    {
+        return $this->hasOne(User::class, 'driverID');
+    }
 }

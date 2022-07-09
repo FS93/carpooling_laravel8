@@ -20,6 +20,10 @@ Route::get('/', function () {return view('search');})->name('search');
 
 Route::get('/searchresult', [RidesController::class, 'queryRides'])->name('searchresult');
 
+Route::post('/joinRide', [RidesController::class, 'joinRide'])->name('joinRide');
+
+Route::post('/unjoinRide', [RidesController::class, 'unjoinRide'])->name('unjoinRide');
+
 Route::resource('/home', RidesController::class);
 
 Route::get('/profile', function () {return view('profile');})->name('profile');

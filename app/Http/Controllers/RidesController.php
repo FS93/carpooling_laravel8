@@ -137,4 +137,36 @@ class RidesController extends Controller
         Ride::destroy($id);
         return redirect('home')->with('success','Ride has been deleted successfully');;
     }
+
+
+    /**
+     * Add the current user as passenger to a ride.
+     *
+     * @param int $rideID
+     * @param int $userID
+     * @return \Illuminate\Http\Response
+     */
+    public function joinRide(Request $request)
+    {
+        // TODO: Check if there are seats availble & if so, add (rideID, userID) to the rides_user_table
+
+        return response('Joined', 200);
+
+    }
+
+
+    /**
+     * Add the current user as passenger to a ride.
+     *
+     * @param int $rideID
+     * @param int $userID
+     * @return \Illuminate\Http\Response
+     */
+    public function unjoinRide(Request $request)
+    {
+        // TODO: Remove the (rideID, userID) from the rides_user_table
+
+        return response('Unjoined', 200);
+
+    }
 }
