@@ -103,12 +103,12 @@
 
                             <!-- Edit trigger modal -->
                             <button type="button" class="btn btn-primary btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#editModal">
+                                    data-bs-target="#editModal{{$ride->id}}">
                                 Edit
                             </button>
 
                             {{-- edit ride modal start --}}
-                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+                            <div class="modal fade" id="editModal{{$ride->id}}" tabindex="-1" aria-labelledby="editModalLabel"
                                  data-bs-backdrop="static" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -158,12 +158,12 @@
 
                             <!-- Delete trigger modal -->
                             <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal">
+                                    data-bs-target="#deleteModal{{$ride->id}}">
                                 Delete
                             </button>
 
                             <!-- Delete Modal -->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                            <div class="modal fade" id="deleteModal{{$ride->id}}" tabindex="-1" aria-labelledby="deleteModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
