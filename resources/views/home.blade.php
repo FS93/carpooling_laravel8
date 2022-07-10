@@ -22,312 +22,360 @@
 
         @if($futureRidesAsDriver->isNotEmpty())
 
-        <div class="container">
-            <div class="container d-flex justify-content-center">
-                <div class="row">
-                    <h1>{{"Rides as Driver" }}</h1>
+            <div class="container">
+                <div class="container d-flex justify-content-center">
+                    <div class="row">
+                        <h1>{{"Rides as Driver" }}</h1>
+                    </div>
                 </div>
-            </div>
-            <table class="table table-striped" id="tblRidesAsDriver">
-                <thead>
-                <tr>
-                    <th scope="col">Departure</th>
-                    <th scope="col">Destination</th>
-                    <th scope="col">Departure Time</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Available Seats</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach($futureRidesAsDriver as $ride)
+                <table class="table table-striped" id="tblRidesAsDriver">
+                    <thead>
                     <tr>
-                        <td>{{$ride->departure}}</td>
-                        <td>{{$ride->destination}}</td>
-                        <td>{{$ride->departureTime}}</td>
-                        <td>{{$ride->price . " €"}}</td>
-                        <td>{{$ride->availableSeats}}</td>
-                        <td style="width: min-content">
+                        <th scope="col">Departure</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Departure Time</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Available Seats</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                            <!-- Show trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#showPassengerModal">
-                                Show
-                            </button>
+                    @foreach($futureRidesAsDriver as $ride)
+                        <tr>
+                            <td>{{$ride->departure}}</td>
+                            <td>{{$ride->destination}}</td>
+                            <td>{{$ride->departureTime}}</td>
+                            <td>{{$ride->price . " €"}}</td>
+                            <td>{{$ride->availableSeats}}</td>
+                            <td style="width: min-content">
 
-                            <!-- Show Passenger Modal -->
-                            <div class="modal fade" id="showPassengerModal" tabindex="-1" aria-labelledby="showPassengerModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="showPassengerModalLabel">Passenger</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            This is the ride data
-                                            <div class="container">
-                                                Driver Name:
+                                <!-- Show trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#showPassengerModal">
+                                    Passenger
+                                </button>
+
+                                <!-- Show Passenger Modal -->
+
+                                <div class="modal fade" id="showPassengerModal" tabindex="-1"
+                                     aria-labelledby="showPassengerModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h1" id="showPassengerModalLabel">Passenger</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                            <div class="modal-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Phone</th>
+                                                        <th scope="col">E-Mail</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($ride->passengers as $passenger)
+                                                        <tr>
+                                                            <td>{{$passenger->firstName . " " . $passenger->name}}</td>
+                                                            <td>{{$passenger->phone}}</td>
+                                                            <td>{{$passenger->email}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
 
 
-                            <!-- Edit trigger modal -->
-                            <button type="button" class="btn btn-primary btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#editModal{{$ride->id}}">
-                                Edit
-                            </button>
-
-                            {{-- edit ride modal start --}}
-                            <div class="modal fade" id="editModal{{$ride->id}}" tabindex="-1" aria-labelledby="editModalLabel"
-                                 data-bs-backdrop="static" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel">Edit Ride</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-
-
-                                        <form action="{{ route('home.update', $ride->id) }}" method="POST" id="edit_ride_form" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="emp_id" id="emp_id">
-                                            <input type="hidden" name="emp_avatar" id="emp_avatar">
-                                            <div class="modal-body p-4 bg-light">
-                                                <div class="my-2">
-                                                    <label for="departure">Departure</label>
-                                                    <input type="text" name="departure" id="departure" class="form-control" placeholder="Departure" value="{{ $ride->departure }}" required>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="destination">Destination</label>
-                                                    <input type="text" name="destination" id="destination" class="form-control" placeholder="Destination" value="{{ $ride->destination }}" required>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="departureTime">Departure Time</label>
-                                                    <input type="datetime-local" name="departureTime" id="departureTime" class="form-control" placeholder="Departure Time" value="{{ $ride->departureTime }}" required>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="price">Price</label>
-                                                    <input type="number" min="0.00" step="0.01" name="price" id="price" class="form-control" placeholder="Price" value="{{ $ride->price }}"required>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="availableSeats">Available Seats</label>
-                                                    <input type="number" name="availableSeats" id="availableSeats" class="form-control" placeholder="Available Seats" value="{{ $ride->availableSeats }}" required>
-                                                </div>
+                                                </table>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" id="edit_ride_btn" class="btn btn-success">Update Ride</button>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- edit ride modal end --}}
-
-                            <!-- Delete trigger modal -->
-                            <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal{{$ride->id}}">
-                                Delete
-                            </button>
-
-                            <!-- Delete Modal -->
-                            <div class="modal fade" id="deleteModal{{$ride->id}}" tabindex="-1" aria-labelledby="deleteModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Do you really want to delete this ride?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                            <form action="{{ route('home.destroy',$ride->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button id="liveAlertBtn" type="submit"
-                                                        class="btn btn-primary btn-danger">Delete
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cancel
                                                 </button>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
-                        </td>
-                    </tr>
-                @endforeach
+                                <!-- Edit trigger modal -->
+                                <button type="button" class="btn btn-primary btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#editModal{{$ride->id}}">
+                                    Edit
+                                </button>
 
-                </tbody>
-            </table>
-        </div>
+                                {{-- edit ride modal start --}}
+                                <div class="modal fade" id="editModal{{$ride->id}}" tabindex="-1"
+                                     aria-labelledby="editModalLabel"
+                                     data-bs-backdrop="static" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h1" id="editModalLabel">Edit Ride</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+
+
+                                            <form action="{{ route('home.update', $ride->id) }}" method="POST"
+                                                  id="edit_ride_form" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="emp_id" id="emp_id">
+                                                <input type="hidden" name="emp_avatar" id="emp_avatar">
+                                                <div class="modal-body p-4 bg-light">
+                                                    <div class="my-2">
+                                                        <label for="departure">Departure</label>
+                                                        <input type="text" name="departure" id="departure"
+                                                               class="form-control" placeholder="Departure"
+                                                               value="{{ $ride->departure }}" required>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="destination">Destination</label>
+                                                        <input type="text" name="destination" id="destination"
+                                                               class="form-control" placeholder="Destination"
+                                                               value="{{ $ride->destination }}" required>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="departureTime">Departure Time</label>
+                                                        <input type="datetime-local" name="departureTime"
+                                                               id="departureTime" class="form-control"
+                                                               placeholder="Departure Time"
+                                                               value="{{ $ride->departureTime }}" required>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="price">Price</label>
+                                                        <input type="number" min="0.00" step="0.01" name="price"
+                                                               id="price" class="form-control" placeholder="Price"
+                                                               value="{{ $ride->price }}" required>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="availableSeats">Available Seats</label>
+                                                        <input type="number" name="availableSeats" id="availableSeats"
+                                                               class="form-control" placeholder="Available Seats"
+                                                               value="{{ $ride->availableSeats }}" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close
+                                                    </button>
+                                                    <button type="submit" id="edit_ride_btn" class="btn btn-success">
+                                                        Update Ride
+                                                    </button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- edit ride modal end --}}
+
+                                <!-- Delete trigger modal -->
+                                <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{$ride->id}}">
+                                    Delete
+                                </button>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal{{$ride->id}}" tabindex="-1"
+                                     aria-labelledby="deleteModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h1" id="deleteModalLabel">Delete Confirmation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Do you really want to delete this ride?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <form action="{{ route('home.destroy',$ride->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button id="liveAlertBtn" type="submit"
+                                                            class="btn btn-primary btn-danger">Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+            </div>
         @endif
-
 
         @if($futureRidesAsPassenger->isNotEmpty())
 
-        <div class="container" id="cntRidesAsPassenger">
-            <div class="container d-flex justify-content-center">
-                <div class="row">
-                    <h1>{{"Rides as Passenger" }}</h1>
+            <div class="container" id="cntRidesAsPassenger">
+                <div class="container d-flex justify-content-center">
+                    <div class="row">
+                        <h1>{{"Rides as Passenger" }}</h1>
+                    </div>
                 </div>
-            </div>
-            <table class="table table-striped" >
-                <thead>
-                <tr>
-                    <th scope="col">Departure</th>
-                    <th scope="col">Destination</th>
-                    <th scope="col">Departure Time</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Available Seats</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach($futureRidesAsPassenger as $ride)
-                    <tr id="trRide{{$ride->id}}">
-                        <td>{{$ride->departure}}</td>
-                        <td>{{$ride->destination}}</td>
-                        <td>{{$ride->departureTime}}</td>
-                        <td>{{$ride->price . " €"}}</td>
-                        <td>{{$ride->availableSeats}}</td>
-                        <td style="width: min-content">
-
-                            <!-- Show trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#showDriverModal">
-                                Show
-                            </button>
-
-                            <!-- Show Passenger Modal -->
-                            <div class="modal fade" id="showDriverModal" tabindex="-1" aria-labelledby="showDriverModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="showPassengerModalLabel">Driver Data</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            This is the ride data
-                                            <div class="container">
-                                                Driver Name:
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Unjoin trigger modal -->
-                            <button id="btnUnjoin{{$ride->id}}" type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#Modal{{$ride->id}}">
-                                Unjoin
-                            </button>
-
-                            {{-- Unjoin ride modal start --}}
-                            <div class="modal fade" id="Modal{{$ride->id}}" tabindex="-1" aria-labelledby="ModalLabel{{$ride->id}}"
-                                 data-bs-backdrop="static" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title h1" id="ModalLabel{{$ride->id}}">Do you want to
-                                                leave this ride?</h5>
-                                            <button id="btnClose{{$ride->id}}" type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-
-                                        <form id="ride_form" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="modal-body p-4 bg-light">
-                                                <div class="my-2">
-                                                    <label for="departure">Departure</label>
-                                                    <input type="text" name="departure" id="departure"
-                                                           class="form-control" placeholder="Departure"
-                                                           value="{{ $ride->departure }}" disabled>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="destination">Destination</label>
-                                                    <input type="text" name="destination" id="destination"
-                                                           class="form-control" placeholder="Destination"
-                                                           value="{{ $ride->destination }}" disabled>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="departureTime">Departure Time</label>
-                                                    <input type="datetime-local" name="departureTime"
-                                                           id="departureTime" class="form-control"
-                                                           placeholder="Departure Time"
-                                                           value="{{ $ride->departureTime }}" disabled>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="price">Price</label>
-                                                    <input type="number" min="0.00" step="0.01" name="price"
-                                                           id="price" class="form-control" placeholder="Price"
-                                                           value="{{ $ride->price }}" disabled>
-                                                </div>
-                                                <div class="my-2">
-                                                    <label for="availableSeats">Available Seats</label>
-                                                    <input type="number" name="availableSeats" id="availableSeats"
-                                                           class="form-control" placeholder="Available Seats"
-                                                           value="{{ $ride->availableSeats }}" disabled>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-
-                                            <button type="button"
-                                                   onclick="unjoinRide({{$ride->id}}, {{\Illuminate\Support\Facades\Auth::user()->id}})"
-                                                    id="btnUnjoinRide{{$ride->id}}Action" class="btn btn-danger">Unjoin Ride
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-                        </td>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Departure Time</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Available Seats</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                @endforeach
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </table>
-        </div>
+                    @foreach($futureRidesAsPassenger as $ride)
+                        <tr id="trRide{{$ride->id}}">
+                            <td>{{$ride->departure}}</td>
+                            <td>{{$ride->destination}}</td>
+                            <td>{{$ride->departureTime}}</td>
+                            <td>{{$ride->price . " €"}}</td>
+                            <td>{{$ride->availableSeats}}</td>
+                            <td style="width: min-content">
+
+                                <!-- Show trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#showDriverModal">
+                                    Driver
+                                </button>
+
+                                <!-- Show Driver Modal -->
+                                <div class="modal fade" id="showDriverModal" tabindex="-1"
+                                     aria-labelledby="showDriverModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h1" id="showDriverModalLabel">Driver Data</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Phone</th>
+                                                        <th scope="col">E-Mail</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{$ride->driver->firstName . " " . $ride->driver->name}}</td>
+                                                            <td>{{$ride->driver->phone}}</td>
+                                                            <td>{{$ride->driver->email}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Unjoin trigger modal -->
+                                <button id="btnUnjoin{{$ride->id}}" type="button" class="btn btn-primary btn-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#Modal{{$ride->id}}">
+                                    Unjoin
+                                </button>
+
+                                {{-- Unjoin ride modal start --}}
+                                <div class="modal fade" id="Modal{{$ride->id}}" tabindex="-1"
+                                     aria-labelledby="ModalLabel{{$ride->id}}"
+                                     data-bs-backdrop="static" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title h1" id="ModalLabel{{$ride->id}}">Do you want to
+                                                    leave this ride?</h5>
+                                                <button id="btnClose{{$ride->id}}" type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+
+                                            <form id="ride_form" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="modal-body p-4 bg-light">
+                                                    <div class="my-2">
+                                                        <label for="departure">Departure</label>
+                                                        <input type="text" name="departure" id="departure"
+                                                               class="form-control" placeholder="Departure"
+                                                               value="{{ $ride->departure }}" disabled>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="destination">Destination</label>
+                                                        <input type="text" name="destination" id="destination"
+                                                               class="form-control" placeholder="Destination"
+                                                               value="{{ $ride->destination }}" disabled>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="departureTime">Departure Time</label>
+                                                        <input type="datetime-local" name="departureTime"
+                                                               id="departureTime" class="form-control"
+                                                               placeholder="Departure Time"
+                                                               value="{{ $ride->departureTime }}" disabled>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="price">Price</label>
+                                                        <input type="number" min="0.00" step="0.01" name="price"
+                                                               id="price" class="form-control" placeholder="Price"
+                                                               value="{{ $ride->price }}" disabled>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <label for="availableSeats">Available Seats</label>
+                                                        <input type="number" name="availableSeats" id="availableSeats"
+                                                               class="form-control" placeholder="Available Seats"
+                                                               value="{{ $ride->availableSeats }}" disabled>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+
+                                                <button type="button"
+                                                        onclick="unjoinRide({{$ride->id}}, {{\Illuminate\Support\Facades\Auth::user()->id}})"
+                                                        id="btnUnjoinRide{{$ride->id}}Action" class="btn btn-danger">
+                                                    Unjoin Ride
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+            </div>
         @endif
-
-
 
     @endif
 
@@ -339,12 +387,12 @@
     </div>
 
     <script>
-       function unjoinRide(rideID, userID) {
+        function unjoinRide(rideID, userID) {
 
             console.log("Unjoined rideID: " + rideID.toString() + ", userID: " + userID.toString())
 
             $('#Modal' + rideID.toString()).on('show.bs.modal', function (event) {
-                $(this).find("ModalLabel"+rideID.toString()).text('Do you want to join this ride?')
+                $(this).find("ModalLabel" + rideID.toString()).text('Do you want to join this ride?')
             })
 
 

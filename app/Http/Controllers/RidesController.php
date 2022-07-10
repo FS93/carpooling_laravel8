@@ -38,16 +38,31 @@ class RidesController extends Controller
      */
     public function queryRides(Request $request)
     {
+        // validate the input - only rides in the future can be queried
+        $request->validate([
+        'departureTime' => 'date|after:yesterday|nullable'
+        ]);
+
         // Query the rides matching the search parameter
         $departure = $request->input('departure',"");
         $destination = $request->input('destination',"");
         $departureTime = $request->input('departureTime',"");
 
-        $retrievedRides = Ride::
-        where('departure','like','%' . $departure . '%')
-            ->where('destination','like','%' . $destination . '%')
-            ->where('departureTime','like',substr($departureTime,0,10) . '%')
-            ->get();
+        if ($departureTime == "") {
+            // no time specified
+            
+            $retrievedRides = Ride::
+            where('departure','like','%' . $departure . '%')
+                ->where('destination','like','%' . $destination . '%')
+                ->where('departureTime','>=',now())
+                ->get();
+        } else {
+            $retrievedRides = Ride::
+            where('departure','like','%' . $departure . '%')
+                ->where('destination','like','%' . $destination . '%')
+                ->where('departureTime','like',substr($departureTime,0,10) . '%')
+                ->get();
+        }
 
         return view('searchResults', ['retrievedRides' => $retrievedRides]);
     }
