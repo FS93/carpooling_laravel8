@@ -50,13 +50,13 @@
 
                                     <!-- Show trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#showPassengerModal">
+                                            data-bs-target="#showPassengerModal{{$ride->id}}">
                                         <i class="bi bi-people-fill me-2"></i>
                                     </button>
 
                                     <!-- Show Passenger Modal -->
 
-                                    <div class="modal fade" id="showPassengerModal" tabindex="-1"
+                                    <div class="modal fade" id="showPassengerModal{{$ride->id}}" tabindex="-1"
                                          aria-labelledby="showPassengerModalLabel"
                                          aria-hidden="true">
                                         <div class="modal-dialog">
@@ -195,12 +195,12 @@
 
                                         <!-- Show trigger modal -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#showDriverModal">
-                                            <i class="bi bi-person-badge-fill me-2"></i>
+                                                data-bs-target="#showDriverModal{{$ride->id}}">
+                                            <i class="bi bi-chat-dots me-2"></i>
                                         </button>
 
                                         <!-- Show Passenger Modal -->
-                                        <div class="modal fade" id="showDriverModal" tabindex="-1" aria-labelledby="showDriverModalLabel"
+                                        <div class="modal fade" id="showDriverModal{{$ride->id}}" tabindex="-1" aria-labelledby="showDriverModalLabel"
                                              aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -324,12 +324,12 @@
 
                                     <!-- Show trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#showDriverModal">
-                                        <i class="bi bi-person-badge-fill me-2"></i>
+                                            data-bs-target="#showDriverModal{{$ride->id}}">
+                                        <i class="bi bi-chat-dots me-2"></i>
                                     </button>
 
                                     <!-- Show Driver Modal -->
-                                    <div class="modal fade" id="showDriverModal" tabindex="-1" aria-labelledby="showDriverModalLabel"
+                                    <div class="modal fade" id="showDriverModal{{$ride->id}}" tabindex="-1" aria-labelledby="showDriverModalLabel"
                                          aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
