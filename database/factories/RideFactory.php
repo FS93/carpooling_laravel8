@@ -22,7 +22,7 @@ class RideFactory extends Factory
             'destination' => $this->faker->address,
             'availableSeats' => 4,
             'price' => 10.00,
-            'driverID' => 2
+            'driverID' => $this->faker->randomNumber(1)
         ];
     }
 }
