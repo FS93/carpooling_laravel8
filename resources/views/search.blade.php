@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
     <script>
+        // set the minimum search data to today - past rides shall not be searchable
         window.onload = function () {
             date = new Date().toISOString().substring(0, 10);
             document.getElementById("departureTime").min = date;
