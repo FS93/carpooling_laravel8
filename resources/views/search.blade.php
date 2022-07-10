@@ -15,8 +15,8 @@
                         <!-- Ride Parameters -->
                         <div class="row">
                             <div class="col-xl">
-                                <input class="form-control mb-4" name="departure" id="departure" placeholder="Departure" data-sb-validations="required" />
-                                <input class="form-control mb-4" name="destination" id="destination" placeholder="Destination" data-sb-validations="required" />
+                                <input class="form-control mb-4" name="departure" id="departure" placeholder="Departure" autofocus/>
+                                <input class="form-control mb-4" name="destination" id="destination" placeholder="Destination"/>
                                 <input class="form-control mb-4" name="departureTime" id="departureTime" type="date" />
                             </div>
                         </div>
