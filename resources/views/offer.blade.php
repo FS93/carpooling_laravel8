@@ -19,7 +19,7 @@
                                 <input class="form-control mb-4" type="text" name="departure" id="departure" placeholder="Departure" required/>
                                 <input class="form-control mb-4" type="text" name="destination" id="destination" placeholder="Destination" required/>
                                 <input class="form-control mb-4" type="datetime-local" name="departureTime" id="departureTime" required/>
-                                <input class="form-control mb-4" type="number" name="availableSeats" id="numberSeats" placeholder="Number of Seats" required/>
+                                <input class="form-control mb-4" type="number" min="1" name="availableSeats" id="numberSeats" placeholder="Number of Seats" required/>
                                 <input class="form-control mb-4" type="number" min="0.00" step="0.01" name="price" id="price" placeholder="Price per seat" required/>
                             </div>
                         </div>

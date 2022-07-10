@@ -156,7 +156,7 @@
                                                     <div class="my-2">
                                                         <label for="availableSeats">Available Seats</label>
                                                         <input type="number" name="availableSeats" id="availableSeats"
-                                                               class="form-control" placeholder="Available Seats"
+                                                               class="form-control" min="{{$ride->passengers->count()}}" placeholder="Available Seats"
                                                                value="{{ $ride->availableSeats }}" required>
                                                     </div>
                                                 </div>

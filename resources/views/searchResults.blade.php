@@ -139,7 +139,7 @@
                                                         </div>
                                                         <div class="my-2">
                                                             <label for="availableSeats">Available Seats</label>
-                                                            <input type="number" name="availableSeats" id="availableSeats" class="form-control" placeholder="Available Seats" value="{{ $ride->availableSeats }}" required>
+                                                            <input type="number" min="{{$ride->passengers->count()}}" name="availableSeats" id="availableSeats" class="form-control" placeholder="Available Seats" value="{{ $ride->availableSeats }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
