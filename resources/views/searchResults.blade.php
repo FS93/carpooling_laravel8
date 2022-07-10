@@ -163,26 +163,35 @@
                         userID: userID,
                         _token: '{{csrf_token()}}'
                     },
-                    success: function () {
+                    success: function (data) {
                         // close the modal
                         $("#Modal" + rideID.toString()).hide();
                         $('body').removeClass('modal-open');
                         $(".modal-backdrop").remove();
 
-                        // change the modal title
-                        $("#ModalLabel"+rideID.toString()).text("Do you want to leave this ride?");
 
-                        // change the button in the table
-                        $("#btnJoin" + rideID.toString()).addClass('visually-hidden');
-                        $("#btnUnjoin" + rideID.toString()).removeClass('visually-hidden');
+                        // on success
+                        if(data.joinSuccessful) {
+                            // show success alert
+                            $("#ridesContainer").before('<div class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                                '<p class="display-5">Enjoy your ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
 
-                        // change the button in the modal
-                        $("#btnJoinRide" + rideID.toString() + "Action").addClass('visually-hidden');
-                        $("#btnUnjoinRide" + rideID.toString() + "Action").removeClass('visually-hidden');
+                            // change the modal title
+                            $("#ModalLabel"+rideID.toString()).text("Do you want to leave this ride?");
 
-                        // show a success alert
-                        $("#ridesContainer").before('<div class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
-                            '<p class="display-5">Enjoy your ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                            // change the button in the table
+                            $("#btnJoin" + rideID.toString()).addClass('visually-hidden');
+                            $("#btnUnjoin" + rideID.toString()).removeClass('visually-hidden');
+
+                            // change the button in the modal
+                            $("#btnJoinRide" + rideID.toString() + "Action").addClass('visually-hidden');
+                            $("#btnUnjoinRide" + rideID.toString() + "Action").removeClass('visually-hidden');
+                        } else { // no more seats available
+                            $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                                '<p class="display-5">Sorry, there are no more seats available!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                        }
+
+
                     },
                     error: function () {
                         // close the modal
@@ -193,7 +202,7 @@
 
                         // show a warning alert
                         $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
-                            '<p class="display-5">Something went wrong...</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                            '<p class="display-5">Something went wrong, please try again.</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                     }
                 })
             }
@@ -215,31 +224,35 @@
                         userID: userID,
                         _token: '{{csrf_token()}}'
                     },
-                    success: function () {
+                    success: function (data) {
                         // close the modal
                         $("#Modal" + rideID.toString()).hide();
                         $('body').removeClass('modal-open');
                         $(".modal-backdrop").remove();
 
 
+                        if (data.unjoinSuccessful) {
+                            // change the modal title
+                            $("#ModalLabel"+rideID.toString()).text("Do you want to join this ride?");
 
-                        // change the modal title
-                        $("#ModalLabel"+rideID.toString()).text("Do you want to join this ride?");
+                            // change the button in the table
 
-                        // change the button in the table
+                            $("#btnUnjoin" + rideID.toString()).addClass('visually-hidden');
+                            $("#btnJoin" + rideID.toString()).removeClass('visually-hidden');
 
-                        $("#btnUnjoin" + rideID.toString()).addClass('visually-hidden');
-                        $("#btnJoin" + rideID.toString()).removeClass('visually-hidden');
+                            // change the button in the modal
 
-                        // change the button in the modal
+                            $("#btnUnjoinRide" + rideID.toString() + "Action").addClass('visually-hidden');
+                            $("#btnJoinRide" + rideID.toString() + "Action").removeClass('visually-hidden');
 
-                        $("#btnUnjoinRide" + rideID.toString() + "Action").addClass('visually-hidden');
-                        $("#btnJoinRide" + rideID.toString() + "Action").removeClass('visually-hidden');
+                            // show a success alert
+                            $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                                '<p class="display-5">You successfully left this ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                        } else {
+                            $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                                '<p class="display-5">Sorry, you were not part of this ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                        }
 
-                        // show a success alert
-
-                        $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
-                            '<p class="display-5">You successfully left this ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                     },
                     error: function () {
                         // close the modal
@@ -250,7 +263,7 @@
 
                         // show a warning alert
                         $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
-                            '<p class="display-5">Something went wrong...</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                            '<p class="display-5">Something went wrong, please try again.</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                     }
                 })
             }

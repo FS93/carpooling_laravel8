@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class RidesController extends Controller
         // Query the rides of the current users
 
         $userRidesAsDriver = Ride::
-        where('driverID', Auth::user()->getAuthIdentifier())
+        where('driverID', Auth::user()->id)
             ->get();
 
         // TODO: Query schreiben
@@ -140,33 +141,55 @@ class RidesController extends Controller
 
 
     /**
-     * Add the current user as passenger to a ride.
+     * Add a user as passenger to a ride.
      *
      * @param int $rideID
      * @param int $userID
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function joinRide(Request $request)
     {
         // TODO: Check if there are seats availble & if so, add (rideID, userID) to the rides_user_table
 
-        return response('Joined', 200);
+        $ride = Ride::find($request->input('rideID'));
+        $joinSuccessful = false;
 
+        // check if there are still seats available
+        if ($ride->availableSeats > $ride->numberOfPassengers()) {
+            $ride->passengers()->attach($request->input('userID'));
+            $joinSuccessful = true;
+        }
+
+        return response()->json([
+            'joinSuccessful' => $joinSuccessful,
+        ]);
     }
 
 
     /**
-     * Add the current user as passenger to a ride.
+     * Remove a user as passenger from a ride.
      *
      * @param int $rideID
      * @param int $userID
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function unjoinRide(Request $request)
     {
-        // TODO: Remove the (rideID, userID) from the rides_user_table
 
-        return response('Unjoined', 200);
+        $ride = Ride::find($request->input('rideID'));
+        $passenger = User::find($request->input('userID'));
+        $unjoinSuccessful = false;
+
+        // if passenger indeed joined the ride, delete the booking
+        if ($ride->passengers->contains($passenger)) {
+            $ride->passengers()->detach($request->input('userID'));
+            $unjoinSuccessful = true;
+        }
+
+        //return response();
+        return response()->json([
+            'unjoinSuccessful' => $unjoinSuccessful,
+        ]);
 
     }
 }

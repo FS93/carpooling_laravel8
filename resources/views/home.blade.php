@@ -17,8 +17,11 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+                        {{ \Illuminate\Support\Facades\Auth::user()->firstName . " "
+                           . \Illuminate\Support\Facades\Auth::user()->name .
+                           \Illuminate\Support\Facades\Auth::user()->destination . __(', you are logged in!')
+                           }}
 
-                        {{ \Illuminate\Support\Facades\Auth::user()->firstName . " " . \Illuminate\Support\Facades\Auth::user()->name . \Illuminate\Support\Facades\Auth::user()->destination . __(', you are logged in!') }}
                     </div>
                 </div>
             </div>

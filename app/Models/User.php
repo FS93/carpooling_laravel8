@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -43,4 +44,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Return the rides in which the user acts as driver.
+     */
+    public function ridesAsDriver() {
+        return $this->hasMany(Ride::class, 'driverID');
+    }
+
+    /**
+     * Return the rides in which the user is a passenger.
+     */
+
+    public function ridesAsPassenger() {
+        return $this->belongsToMany(Ride::class, 'rides_users_pivot', 'passengerID', 'rideID')->as('booking')->withTimestamps();
+    }
+
+    /**
+     * Return the upcoming rides in which the user is a passenger.
+     */
+
+    public function futureRidesAsPassenger() {
+        return $this->ridesAsPassenger()->where('departureTime', '>', now())->get();
+    }
+
+
 }

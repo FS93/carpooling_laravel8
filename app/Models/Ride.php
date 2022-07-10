@@ -9,6 +9,8 @@ class Ride extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+
     protected $table = 'rides';
 
     protected $fillable = [
@@ -24,6 +26,23 @@ class Ride extends Model
      */
     public function driver()
     {
-        return $this->hasOne(User::class, 'driverID');
+        return $this->belongsTo(User::class, 'driverID');
+    }
+
+    /**
+     * Get the passengers associated with a ride.
+     */
+    public function passengers()
+    {
+        return $this->belongsToMany(User::class, 'rides_users_pivot','rideID', 'passengerID')->as('booking')->withTimestamps();
+    }
+
+    /**
+     * Return the number of bookings on a ride.
+     */
+
+    public function numberOfPassengers() {
+        return $this->passengers()->count();
     }
 }
+

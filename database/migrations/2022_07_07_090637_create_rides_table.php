@@ -21,7 +21,8 @@ class CreateRidesTable extends Migration
             $table->string('destination');
             $table->integer('availableSeats');
             $table->decimal('price', 7, 2);
-            $table->bigInteger('driverID');
+            $table->unsignedBigInteger('driverID');
+            $table->foreign('driverID')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
