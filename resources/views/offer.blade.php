@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <script>
+        // set the minimum search data to today - past rides cannot be offered
+        window.onload = function () {
+            let date = new Date().toISOString().substring(0,16)
+            document.getElementById("departureTime").min = date;
+        }
+    </script>
+
     <div class="container position-relative">
         <div class="justify-content-center text-center">
             <!-- Page heading-->
