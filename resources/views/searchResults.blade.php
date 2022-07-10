@@ -18,7 +18,7 @@
     @else
 
         <div id="ridesContainer" class="container">
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive">
                 <thead>
                 <tr>
                     <th scope="col">Departure</th>
@@ -26,6 +26,7 @@
                     <th scope="col">Departure Time</th>
                     <th scope="col">Price</th>
                     <th scope="col">Available Seats</th>
+                    <th scope="col">Booked Seats</th>
                     @auth
                         <th scope="col">Actions</th>
                     @endauth
@@ -41,6 +42,7 @@
                             <td>{{$ride->departureTime}}</td>
                             <td>{{$ride->price . " €"}}</td>
                             <td>{{$ride->availableSeats}}</td>
+                            <td id="numberPassengersRide{{$ride->id}}">{{$ride->passengers_count}}</td>
 
                             @if($ride->driverID == \Illuminate\Support\Facades\Auth::user()->id)
                                 {{-- current user is the driver of that ride --}}
@@ -49,7 +51,7 @@
                                     <!-- Show trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#showPassengerModal">
-                                        Passenger
+                                        <i class="bi bi-people-fill me-2"></i>
                                     </button>
 
                                     <!-- Show Passenger Modal -->
@@ -99,7 +101,7 @@
                                     <!-- Edit trigger modal -->
                                     <button type="button" class="btn btn-primary btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{$ride->id}}">
-                                        Edit
+                                        <i class="bi bi-pencil-square me-2"></i>
                                     </button>
 
                                     {{-- edit ride modal start --}}
@@ -154,7 +156,7 @@
                                     <!-- Delete trigger modal -->
                                     <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#deleteModal{{$ride->id}}">
-                                        Delete
+                                        <i class="bi bi-trash me-2"></i>
                                     </button>
 
                                     <!-- Delete Modal -->
@@ -194,7 +196,7 @@
                                         <!-- Show trigger modal -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#showDriverModal">
-                                            Driver
+                                            <i class="bi bi-person-badge-fill me-2"></i>
                                         </button>
 
                                         <!-- Show Passenger Modal -->
@@ -238,13 +240,13 @@
                                         <!-- Unjoin trigger modal -->
                                         <button id="btnUnjoin{{$ride->id}}" type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#Modal{{$ride->id}}">
-                                            Unjoin
+                                            <i class="bi bi-person-dash me-2"></i>
                                         </button>
 
                                         <!-- Join trigger modal -->
                                         <button id="btnJoin{{$ride->id}}" type="button" class="btn btn-primary btn-success visually-hidden" data-bs-toggle="modal"
                                                 data-bs-target="#Modal{{$ride->id}}">
-                                            Join
+                                            <i class="bi bi-person-plus me-2"></i>
                                         </button>
 
                                         {{-- Unjoin ride modal start --}}
@@ -323,7 +325,7 @@
                                     <!-- Show trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#showDriverModal">
-                                        Driver
+                                        <i class="bi bi-person-badge-fill me-2"></i>
                                     </button>
 
                                     <!-- Show Driver Modal -->
@@ -365,13 +367,13 @@
                                     <!-- Join trigger modal -->
                                     <button id="btnJoin{{$ride->id}}" type="button" class="btn btn-primary btn-success" data-bs-toggle="modal"
                                             data-bs-target="#Modal{{$ride->id}}">
-                                        Join
+                                        <i class="bi bi-person-plus me-2"></i>
                                     </button>
 
                                     <!-- Unjoin trigger modal -->
                                     <button id="btnUnjoin{{$ride->id}}" type="button" class="btn btn-primary btn-danger visually-hidden" data-bs-toggle="modal"
                                             data-bs-target="#Modal{{$ride->id}}">
-                                        Unjoin
+                                        <i class="bi bi-person-dash me-2"></i>
                                     </button>
 
                                     {{-- Join / Unjoin ride modal start --}}
@@ -458,10 +460,15 @@
                         <tr>
                     @endforeach
                 @endguest
-
-
                 </tbody>
             </table>
+
+            <div class="container d-flex justify-content-center mt-5">
+                <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i
+                        class="bi bi-search me-2"></i>Search</a>
+                <a class="btn btn-primary btn-lg mb-4 ms-3" type="button" href=" {{route('home.create')}} "><i
+                        class="bi bi-plus-circle me-2"></i>Offer</a>
+            </div>
         </div>
 
         <script>
@@ -493,6 +500,11 @@
                             // show success alert
                             $("#ridesContainer").before('<div class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
                                 '<p class="display-5">Enjoy your ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+
+
+                            // change the booked seats in the table
+                            $("#numberPassengersRide" + rideID.toString()).html(parseInt($("#numberPassengersRide12").html()) + 1);
+
 
                             // change the modal title
                             $("#ModalLabel"+rideID.toString()).text("Do you want to leave this ride?");
@@ -552,6 +564,10 @@
                         if (data.unjoinSuccessful) {
                             // change the modal title
                             $("#ModalLabel"+rideID.toString()).text("Do you want to join this ride?");
+
+                            // change the booked seats in the table
+                            $("#numberPassengersRide" + rideID.toString()).html(parseInt($("#numberPassengersRide12").html()) - 1);
+
 
                             // change the button in the table
 

@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <div id="liveAlertPlaceholder"></div>
-
     @if ($message = Session::get('success'))
         <div
             class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">
@@ -36,6 +34,7 @@
                         <th scope="col">Departure Time</th>
                         <th scope="col">Price</th>
                         <th scope="col">Available Seats</th>
+                        <th scope="col">Booked Seats</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -48,12 +47,13 @@
                             <td>{{$ride->departureTime}}</td>
                             <td>{{$ride->price . " €"}}</td>
                             <td>{{$ride->availableSeats}}</td>
+                            <td>{{$ride->passengers->count()}}</td>
                             <td style="width: min-content">
 
                                 <!-- Show trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#showPassengerModal">
-                                    Passenger
+                                    <i class="bi bi-people-fill me-2"></i>
                                 </button>
 
                                 <!-- Show Passenger Modal -->
@@ -103,7 +103,7 @@
                                 <!-- Edit trigger modal -->
                                 <button type="button" class="btn btn-primary btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#editModal{{$ride->id}}">
-                                    Edit
+                                    <i class="bi bi-pencil-square me-2"></i>
                                 </button>
 
                                 {{-- edit ride modal start --}}
@@ -176,7 +176,7 @@
                                 <!-- Delete trigger modal -->
                                 <button type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{$ride->id}}">
-                                    Delete
+                                    <i class="bi bi-trash me-2"></i>
                                 </button>
 
                                 <!-- Delete Modal -->
@@ -235,6 +235,7 @@
                         <th scope="col">Departure Time</th>
                         <th scope="col">Price</th>
                         <th scope="col">Available Seats</th>
+                        <th scope="col">Booked Seats</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -247,12 +248,13 @@
                             <td>{{$ride->departureTime}}</td>
                             <td>{{$ride->price . " €"}}</td>
                             <td>{{$ride->availableSeats}}</td>
+                            <td>{{$ride->passengers->count()}}</td>
                             <td style="width: min-content">
 
                                 <!-- Show trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#showDriverModal">
-                                    Driver
+                                    <i class="bi bi-person-badge-fill me-2"></i>
                                 </button>
 
                                 <!-- Show Driver Modal -->
@@ -298,7 +300,7 @@
                                 <button id="btnUnjoin{{$ride->id}}" type="button" class="btn btn-primary btn-danger"
                                         data-bs-toggle="modal"
                                         data-bs-target="#Modal{{$ride->id}}">
-                                    Unjoin
+                                    <i class="bi bi-person-dash me-2"></i>
                                 </button>
 
                                 {{-- Unjoin ride modal start --}}

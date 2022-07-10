@@ -43,26 +43,32 @@ class RidesController extends Controller
         'departureTime' => 'date|after:yesterday|nullable'
         ]);
 
-        // Query the rides matching the search parameter
         $departure = $request->input('departure',"");
         $destination = $request->input('destination',"");
         $departureTime = $request->input('departureTime',"");
 
-        if ($departureTime == "") {
-            // no time specified
-            
-            $retrievedRides = Ride::
-            where('departure','like','%' . $departure . '%')
+        // match search parameter
+        if ($departureTime == "") {// no time specified
+            $retrievedRides = Ride::withCount('passengers')
+                ->where('departure','like','%' . $departure . '%')
                 ->where('destination','like','%' . $destination . '%')
                 ->where('departureTime','>=',now())
                 ->get();
-        } else {
-            $retrievedRides = Ride::
-            where('departure','like','%' . $departure . '%')
+
+        } else {// time specified
+            $retrievedRides = Ride::withCount('passengers')
+                ->where('departure','like','%' . $departure . '%')
                 ->where('destination','like','%' . $destination . '%')
                 ->where('departureTime','like',substr($departureTime,0,10) . '%')
                 ->get();
         }
+
+        // filter for rides which still have free seats
+        $retrievedRides = $retrievedRides->filter(
+            function($ride) {
+                return $ride->passengers_count < $ride->availableSeats;
+            }
+        );
 
         return view('searchResults', ['retrievedRides' => $retrievedRides]);
     }
