@@ -22,7 +22,7 @@
                             <a class="nav-link" href="{{route('home.create')}}">Offer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('profile')}}">Profile</a>
+                            <a class="nav-link" href="{{route('showProfile')}}">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"

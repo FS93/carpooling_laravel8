@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\RidesController;
-use App\Services\AvailableRides;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +26,6 @@ Route::post('/unjoinRide', [RidesController::class, 'unjoinRide'])->name('unjoin
 
 Route::resource('/home', RidesController::class);
 
-Route::get('/profile', function () {return view('profile');})->name('profile');
+Route::get('/profile', [UserController::class, 'showProfile'])->name('showProfile');
+
+Route::post('/profile', [UserController::class, 'updateProfile'])->name('updateProfile');
