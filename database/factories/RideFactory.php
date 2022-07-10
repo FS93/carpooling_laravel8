@@ -18,7 +18,7 @@ class RideFactory extends Factory
     {
         return [
             'departure' => $this->faker->address,
-            'departureTime' => $this->faker->dateTime,
+            'departureTime' => $this->faker->dateTimeBetween('+1 week', '+2 month'),
             'destination' => $this->faker->address,
             'availableSeats' => 4,
             'price' => 10.00,
