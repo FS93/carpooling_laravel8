@@ -145,8 +145,6 @@
         </div>
 
         <script>
-
-
             function joinRide(rideID, userID) {
                 console.log("Joined rideID: " + rideID.toString() + ", userID: " + userID.toString())
 

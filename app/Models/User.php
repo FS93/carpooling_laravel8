@@ -53,6 +53,13 @@ class User extends Authenticatable
     }
 
     /**
+     * Return the upcoming rides in which the user acts as driver.
+     */
+    public function futureRidesAsDriver() {
+        return $this->ridesAsDriver()->where('departureTime','>=',now())->get();
+    }
+
+    /**
      * Return the rides in which the user is a passenger.
      */
 
@@ -65,7 +72,7 @@ class User extends Authenticatable
      */
 
     public function futureRidesAsPassenger() {
-        return $this->ridesAsPassenger()->where('departureTime', '>', now())->get();
+        return $this->ridesAsPassenger()->where('departureTime', '>=', now())->get();
     }
 
 

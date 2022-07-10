@@ -13,22 +13,20 @@ class RidesController extends Controller
     /**
      * Display a listing of the current user's rides.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         // Query the rides of the current users
+        $user = Auth::user();
+        $userRidesAsDriver = $user->futureRidesAsDriver();
+        $userRidesAsPassenger = $user->futureRidesAsPassenger();
 
-        $userRidesAsDriver = Ride::
-        where('driverID', Auth::user()->id)
-            ->get();
 
-        // TODO: Query schreiben
-        $userRidesAsPassenger = collect([]);
-
-        $userRides = $userRidesAsDriver->merge($userRidesAsPassenger);
-
-        return view('home', ['userRides' => $userRides]);
+        return view('home', [
+            'futureRidesAsDriver' => $userRidesAsDriver,
+            'futureRidesAsPassenger' => $userRidesAsPassenger
+            ]);
 
     }
 
