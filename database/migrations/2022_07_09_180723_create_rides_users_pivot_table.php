@@ -18,7 +18,10 @@ class CreateRidesUsersPivotTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('rideID');
             $table->unsignedBigInteger('passengerID');
-            $table->foreign('rideID')->references('id')->on('rides');
+            $table->foreign('rideID')
+                ->references('id')
+                ->on('rides')
+                ->onDelete('cascade');
             $table->foreign('passengerID')
                 ->references('id')
                 ->on('users')
