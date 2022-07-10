@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <div id="alertContainer"></div>
+
     @if ($message = Session::get('success'))
         <div
             class="alert alert-success container alert-dismissible d-flex justify-content-center align-items-center mt-3">
@@ -424,10 +426,10 @@
                         }
 
                         // show a success alert
-                        $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                        $("#alertContainer").html('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
                             '<p class="display-5">You successfully left this ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                     } else {
-                        $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                        $("#alertContainer").html('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
                             '<p class="display-5">Sorry, you were not part of this ride!</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                     }
 
@@ -440,7 +442,7 @@
                     $(".modal-backdrop").remove();
 
                     // show a warning alert
-                    $("#ridesContainer").before('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
+                    $("#alertContainer").html('<div class="alert alert-danger container alert-dismissible d-flex justify-content-center align-items-center mt-3">' +
                         '<p class="display-5">Something went wrong, please try again.</p> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                 }
             })

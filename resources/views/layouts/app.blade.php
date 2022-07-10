@@ -9,6 +9,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Favicon -->
+    <link type="image/png" sizes="16x16" rel="icon" href="{{asset('icons8-steering-wheel-96.png')}}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
