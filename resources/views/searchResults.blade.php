@@ -515,7 +515,7 @@
 
 
                             // change the booked seats in the table
-                            $("#numberPassengersRide" + rideID.toString()).html(parseInt($("#numberPassengersRide12").html()) + 1);
+                            $("#numberPassengersRide" + rideID.toString()).html(parseInt($("#numberPassengersRide" + rideID.toString()).html()) + 1);
 
 
                             // change the modal title
@@ -578,7 +578,7 @@
                             $("#ModalLabel"+rideID.toString()).text("Do you want to join this ride?");
 
                             // change the booked seats in the table
-                            $("#numberPassengersRide" + rideID.toString()).html(parseInt($("#numberPassengersRide12").html()) - 1);
+                            $("#numberPassengersRide" + rideID.toString()).html(parseInt($("#numberPassengersRide" + rideID.toString()).html()) - 1);
 
 
                             // change the button in the table
