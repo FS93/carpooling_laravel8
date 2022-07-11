@@ -10,15 +10,27 @@
             </div>
         </div>
 
-        <div class="container d-flex justify-content-center mt-5">
-            <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i
-                    class="bi bi-search me-2"></i>Return to Search</a>
-        </div>
-
+        @auth
+            <div class="container d-flex justify-content-center mt-5">
+                <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i
+                        class="bi bi-search me-2"></i>Search</a>
+                <a class="btn btn-primary btn-lg mb-4 ms-3" type="button" href=" {{route('home.create')}} "><i
+                        class="bi bi-plus-circle me-2"></i>Offer</a>
+            </div>
+        @endauth
     @else
 
+        @guest
+            <div class="container d-flex justify-content-center mb-3">
+                <div class="row opacity-75">
+                    <h1><a href="{{ route('login') }}" class="">Login</a> or <a href="{{ route('register') }}" class="">register</a>
+                        to join a ride!</h1>
+                </div>
+            </div>
+        @endguest
+
         <div id="ridesContainer" class="container">
-            <table class="table table-striped table-responsive">
+            <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Departure</th>
@@ -447,6 +459,12 @@
                             @endif
                         </tr>
                     @endforeach
+                    <div class="container d-flex justify-content-center mt-5">
+                        <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i
+                                class="bi bi-search me-2"></i>Search</a>
+                        <a class="btn btn-primary btn-lg mb-4 ms-3" type="button" href=" {{route('home.create')}} "><i
+                                class="bi bi-plus-circle me-2"></i>Offer</a>
+                    </div>
                 @endauth
 
                 @guest
@@ -457,18 +475,12 @@
                             <td>{{$ride->departureTime}}</td>
                             <td>{{$ride->price . " €"}}</td>
                             <td>{{$ride->availableSeats}}</td>
+                            <td>{{$ride->passengers->count()}}</td>
                         <tr>
                     @endforeach
                 @endguest
                 </tbody>
             </table>
-
-            <div class="container d-flex justify-content-center mt-5">
-                <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i
-                        class="bi bi-search me-2"></i>Search</a>
-                <a class="btn btn-primary btn-lg mb-4 ms-3" type="button" href=" {{route('home.create')}} "><i
-                        class="bi bi-plus-circle me-2"></i>Offer</a>
-            </div>
         </div>
 
         <script>
@@ -606,13 +618,6 @@
     @endif
 
     @guest
-        <div class="container d-flex justify-content-center">
-            <div class="row">
-                <h1><a href="{{ route('login') }}" class="">Login</a> or <a href="{{ route('register') }}" class="">register</a>
-                    to join a ride!</h1>
-            </div>
-        </div>
-
         <div class="container d-flex justify-content-center mt-5">
             <a class="btn btn-primary btn-lg mb-4" type="button" href=" {{route('search')}} "><i
                     class="bi bi-search me-2"></i>Return to Search</a>
